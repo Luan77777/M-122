@@ -1,15 +1,16 @@
+
 #!/bin/bash
 
 #Variablen API_KEY und CITY definiert.
 API_KEY="2d386bb6108ef6d83cb184ec4347323c"
 CITY="Zürich"
 
-# API-Anfrage an OpenWeatherMap senden und anschliessend die Antwort speichern
+# API-Anfrage an OpenWeatherMap senden und anschliessend die Antwort speichern, -s "Work in silent mode". mehr zu curl: https://linuxhint.com/curl_bash_examples/
 response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$CITY&appid=$API_KEY&units=metric")
 
-# Daten extrahieren
+# Daten extrahieren aus $response (JSON) -> https://linuxhint.com/bash_jq_command/, -r liest als plain text aus
   temperature=$(jq -r '.main.temp' <<< "$response")
-  humidity=$(jq -r '.main.humidity' <<< "$response")
+  humidity=$(jq -r '.main.humidity' <<< "$response")	
   pressure=$(jq -r '.main.pressure' <<< "$response")
   wind_speed=$(jq -r '.wind.speed' <<< "$response")
   sunrise=$(jq -r '.sys.sunrise' <<< "$response")
@@ -18,11 +19,11 @@ response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$CITY&appi
   # Wetterbedingungen extrahieren
   weather=$(jq -r '.weather[0].description' <<< "$response")
 
-  # Sonnenaufgangs- und Sonnenuntergangszeiten konvertieren
+  # Sonnenaufgangs- und Sonnenuntergangszeiten konvertieren https://www.tutorialkart.com/bash-shell-scripting/bash-date-format-options-examples/#gsc.tab=0
   sunrise_time=$(date -d "@$sunrise" +"%H:%M")
   sunset_time=$(date -d "@$sunset" +"%H:%M")
 
-  # HTML-Datei erstellen und Wetterdaten werden hineinggeschreiben
+  # HTML-Datei erstellen und Wetterdaten werden hineinggeschreiben https://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash
   cat > weather.html <<EOF
 <html>
 <head>
@@ -63,4 +64,4 @@ response=$(curl -s "https://api.openweathermap.org/data/2.5/weather?q=$CITY&appi
 </html>
 EOF
 
-  echo "Die Wetterdaten wurden erfolgreich in die Datei weather.html geschrieben."
+  echo "Die Wetterdaten wurden erfolgreich in die Datei weather.html geschrieben."
