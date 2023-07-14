@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>Wetterbericht</title>
+  <style>
+    .weather-card {
+      background-color: #F5F5F5;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .weather-data {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-card">
+    <h1>Aktuelle Wetterdaten für Zürich:</h1>
+    <div class="weather-data">
+      <p>Temperatur: 16.91 °C</p>
+      <p>Luftfeuchtigkeit: 80 %</p>
+      <p>Luftdruck: 1019 hPa</p>
+      <p>Windgeschwindigkeit: 1.03 m/s</p>
+      <p>Sonnenaufgang: 05:42 Uhr</p>
+      <p>Sonnenuntergang: 21:19 Uhr</p>
+      <p>Wetterbedingungen: clear sky</p>
+    </div>
+    <button onclick="refreshWeather()">Aktualisieren</button>
+  </div>
+  <script>
+    function refreshWeather() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
