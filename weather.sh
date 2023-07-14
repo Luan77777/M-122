@@ -1,5 +1,6 @@
-
 #!/bin/bash
+
+#Wetterdaten abfragen von openweather Luan Rüegg
 
 #Variablen API_KEY und CITY definiert.
 API_KEY="2d386bb6108ef6d83cb184ec4347323c"
